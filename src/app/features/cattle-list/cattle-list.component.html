@@ -1,0 +1,105 @@
+
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Cattle Market Inventory</mat-card-title>
+    </mat-card-header>
+    @defer (on viewport){
+      <mat-card-content>
+        @if (error) {
+          <div class="error-container">
+            <p>{{ error }}</p>
+            <button mat-raised-button color="primary" (click)="loadCattle()">Try Again</button>
+          </div>
+        } @else if (cattle.length === 0) {
+          <div class="empty-container">
+            <p>No cattle available in the market.</p>
+            <button mat-raised-button color="primary" (click)="addNewCattle()">Add New Cattle</button>
+          </div>
+        } @else {
+          <div class="actions-container">
+            <button mat-raised-button color="primary" (click)="addNewCattle()">
+              <mat-icon>add</mat-icon> Add New Cattle
+            </button>
+          </div>
+
+          <table mat-table [dataSource]="cattle" class="mat-elevation-z8">
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+            </ng-container>
+
+            <!-- Breed Column -->
+            <ng-container matColumnDef="breed">
+              <th mat-header-cell *matHeaderCellDef>Breed</th>
+              <td mat-cell *matCellDef="let element">{{ element.breed }}</td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef>Weight</th>
+              <td mat-cell *matCellDef="let element">{{ element.weight | weight }}</td>
+            </ng-container>
+
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef>Price</th>
+              <td mat-cell *matCellDef="let element">{{ element.price | currency:'PKR ':'symbol':'1.0-0' }}</td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let element">
+                <mat-chip >
+                  {{ element.available | availabilityStatus }}
+                </mat-chip>
+              </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let element">
+                <button
+                  mat-icon-button
+                  (click)="toggleAvailability(element)"
+                  [attr.aria-label]="element.available ? 'Mark as sold' : 'Mark as available'"
+
+                >
+                  @if (element.available) {
+                    <mat-icon matTooltip="Mark as sold">shopping_cart</mat-icon>
+                  } @else {
+                    <mat-icon matTooltip="Mark as available">restore</mat-icon>
+                  }
+                </button>
+                <button
+                  mat-icon-button
+                  (click)="router.navigate(['/cattle/edit', element.id])"
+                  aria-label="Edit Cattle"
+                >
+                  <mat-icon matTooltip="Edit Cattle">edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  (click)="deleteCattle(element.id)"
+                  aria-label="Delete Cattle"
+                >
+                  <mat-icon matTooltip="Delete Cattle">delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        }
+      </mat-card-content>
+    } @placeholder {
+      <app-shell></app-shell>
+    } @loading (minimum 500ms) {
+      <app-shell></app-shell>
+    }
+  </mat-card>
+</div>

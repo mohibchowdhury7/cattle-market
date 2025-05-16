@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "1234",
+      "token": "fake-jwt-token"
+    }
+  ],
+  "cattle": [
+    {
+      "id": "1",
+      "breed": "Holstein",
+      "weight": 650,
+      "price": 4000,
+      "available": false
+    },
+    {
+      "id": "2",
+      "breed": "Angus",
+      "weight": 720,
+      "price": 95000,
+      "available": false
+    },
+    {
+      "id": "3",
+      "breed": "Brahman",
+      "weight": 680,
+      "price": 78000,
+      "available": true
+    },
+    {
+      "id": "4",
+      "breed": "Hereford",
+      "weight": 700,
+      "price": 88000,
+      "available": true
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Add New Cattle</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="cattleForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Breed</mat-label>
+          <input matInput formControlName="breed" placeholder="Breed">
+          @if (breed.hasError('required')) {
+            <mat-error>Breed is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Weight (kg)</mat-label>
+          <input matInput type="number" formControlName="weight" placeholder="Weight in kg">
+          @if (weight.hasError('required')) {
+            <mat-error>Weight is required</mat-error>
+          } @else if (weight.hasError('min')) {
+            <mat-error>Weight must be at least 1 kg</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Price (PKR)</mat-label>
+          <input matInput type="number" formControlName="price" placeholder="Price in PKR">
+          @if (price.hasError('required')) {
+            <mat-error>Price is required</mat-error>
+          } @else if (price.hasError('min')) {
+            <mat-error>Price must be at least 1 PKR</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="checkbox-container">
+          <mat-checkbox formControlName="available">Available for sale</mat-checkbox>
+        </div>
+
+        <div class="button-container">
+          <button mat-button type="button" (click)="goBack()">Cancel</button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="cattleForm.invalid || isSubmitting">
+            @if (isSubmitting) {
+              <mat-spinner diameter="24"></mat-spinner>
+            } @else {
+              {{ cattleId ? 'Edit' : 'Add' }} Cattle
+            }
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
