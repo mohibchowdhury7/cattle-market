@@ -30,6 +30,7 @@
             mat-raised-button
             color="primary"
             type="submit"
+            aria-label="Login"
             [disabled]="loginForm.invalid || isLoading">
             @if (isLoading) {
               <mat-spinner diameter="24"></mat-spinner>

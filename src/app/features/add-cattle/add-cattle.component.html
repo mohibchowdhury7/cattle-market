@@ -43,6 +43,7 @@
             mat-raised-button
             color="primary"
             type="submit"
+            [attr.aria-label]="cattleId ? 'Edit Cattle' : 'Add Cattle'".
             [disabled]="cattleForm.invalid || isSubmitting">
             @if (isSubmitting) {
               <mat-spinner diameter="24"></mat-spinner>

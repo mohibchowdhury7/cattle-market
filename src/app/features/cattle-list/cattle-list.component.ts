@@ -58,7 +58,7 @@ export class CattleListComponent implements OnInit{
         this.isLoading = false;
       },
       error: (err) => {
-        this.error = 'Failed to load cattle. ' + err.message;
+        this.error = 'Failed to load cattle.';
         this.isLoading = false;
       }
     });
